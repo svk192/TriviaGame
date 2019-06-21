@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <title>Trivia</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+
+</head>
+
+<body>
+    <h1>Trivia Game</h1>
+    <br>
+
+
+    <br>
+    <div id="container">
+        <input id="StartGame" type="button" value="Start Game">
+        <div id="display"></div>
+        <div id="Question"></div>
+        <div id="Options"></div>
+        <div id="result"></div>
+    </div>
+    </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var questions = [
+                {
+                    question: "What is Joey's middle name?",
+                    options: ["Frances", "Kangaroo", "Muriel"],
+                    answer: "Frances",
+          
+                },
+
+                {
+                    question: "What is Joey's favorite food?",
+                    options: ["Sandwiches", "Salad", "Pizza"],
+                    answer: "Sandwiches",
+                 
+                },
+
+                {
+                    question: "What is Monica's Occupation",
+                    options: ["Masseuse", "Chef", "Agent"],
+                    answer: "Chef",
+          
+                }
+            ];
+
+           var questionNumber = [0,1,2]; 
+           shuffle(questionNumber);
+            var clockRunning = false;
+            var intervalId;
+            var wins = 0;
+            var losses = 0;
+            var counter = 0;
+            var questionNumber = 0;
+            var delayButtonAlert;
+
+            var time = 30;
+
+
+            $(document).on("click", "#StartGame", function () {
+                // event.preventDefault();
+
+                $(this).remove();
+                nextquestion();
+
+
+            });
+
+            // $("#StartGame").on("click", function () {
+            $(document).on("click", ".option", function () {
+                console.log("counter" + counter);
+                // event.preventDefault();//
+                
+                checkAnswer($(this).attr("data-letter"));
+
+            });
+
+            // });
+
+            function nextquestion() {
+                console.log("counter" + counter);
+                if (counter < 3) {
+
+                    reset();
+                    displayQuestion();
+
+                }
+                else {
+                    $("#container").html("<p>" + "End!" + "</p><br> Wins:" + wins + "<br> Losses:" + losses);
+                    stop();
+                }
+            }
+
+            function checkAnswer(data) {
+
+                stop();
+
+                console.log(data);
+                if (data === questions[questionNumber].answer) {
+                    console.log("Correct");
+                    wins++;
+                    $("#Options").empty();
+                    $("#Question").empty();
+
+                    $("#display").empty();
+                    $("#result").html("<p>" + "Correct!" + "</p>");
+
+                    delayButtonAlert = setTimeout(nextquestion, 5000);
+
+                }
+                else {
+                    console.log("Not Correct");
+                    losses++;
+                    $("#Options").empty();
+                    $("#Question").empty();
+                    $("#display").empty();
+
+                    delayButtonAlert = setTimeout(nextquestion, 5000);
+
+                    $("#result").html("<p>" + "Not Correct!" + "</p>")
+
+
+
+                }
+
+            }
+
+
+            function displayQuestion() {
+
+
+                    questionNumber = counter;   
+
+                $("#Question").html(questions[questionNumber].question);
+
+                for (i = 0; i < 3; i++) {
+
+                    var newDiv = $("<div>");
+                    newDiv.html((i + 1) + ") " + questions[questionNumber].options[i]);
+                    // $("#Options").append("<div>" + (i + 1) + ") " + questions[qno].options[i] + "</div>");
+
+                    newDiv.attr("data-letter", questions[questionNumber].options[i]);
+                    newDiv.addClass("option");
+                    $("#Options").append(newDiv);
+                }
+
+                counter++;
+
+            }
+
+
+
+            function shuffle ( array ) { array . sort ( ( ) => Math . random ( ) - 0.5 ) ; } 
+
+
+
+
+            function start() {
+
+                // DONE: Use setInterval to start the count here and set the clock to running.
+                if (!clockRunning) {
+                    intervalId = setInterval(count, 1000);
+                    clockRunning = true;
+                }
+            }
+
+            function count() {
+                time--;
+
+                var converted = time;
+                console.log(converted);
+                $("#display").text(converted);
+            }
+
+            function stop() {
+                clearInterval(intervalId);
+                clockRunning = false;
+            }
+
+            function reset() {
+                stop();
+
+                $("#Options").empty();
+                $("#Question").empty();
+                $("#result").empty();
+
+                time = 30;
+
+                $("#display").text("30");
+                start();
+            }
+
+
+        });
+    </script>
+
+</body>
+
+</html>
