@@ -10,6 +10,7 @@
     <title>Trivia</title>
 
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Handlee|Shadows+Into+Light+Two&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 
@@ -23,8 +24,10 @@
     <br>
     <div id="container">
         <input id="StartGame" type="button" value="Start Game">
+    <div id = "Top">
         <div id="display"></div>
         <div id="Question"></div>
+    </div>
         <div id="Options"></div>
         <div id="result"></div>
     </div>
@@ -54,10 +57,29 @@
                     options: ["Masseuse", "Chef", "Agent"],
                     answer: "Chef",
           
-                }
+                },
+                {
+                    question: "Whose catchphrase is 'Oh My God!'?",
+                    options: ["Janice", "Monica", "Ross"],
+                    answer: "Janice",
+          
+                },
+                {
+                    question: "What is the name of the Coffee Shop?",
+                    options: ["Friends Cafe", "Central Perk", "Central Park"],
+                    answer: "Central Perk",
+          
+                },
+                {
+                    question: "Who was the bride in the first one?",
+                    options: ["Pheobe", "Monica", "Rachel"],
+                    answer: "Rachel",
+          
+                },
+            
             ];
 
-           var questionNumber = [0,1,2]; 
+           var questionNumber = [0,1,2,3,4,5]; 
            shuffle(questionNumber);
             var clockRunning = false;
             var intervalId;
@@ -92,7 +114,7 @@
 
             function nextquestion() {
                 console.log("counter" + counter);
-                if (counter < 3) {
+                if (counter < 5) {
 
                     reset();
                     displayQuestion();
@@ -102,14 +124,30 @@
                     $("#container").html("<p>" + "End!" + "</p><br> Wins:" + wins + "<br> Losses:" + losses);
                     stop();
                 }
+
+
+                delayButtonAlert = setTimeout(checkAnswer, 30000,0);
             }
 
             function checkAnswer(data) {
 
-                stop();
-
                 console.log(data);
-                if (data === questions[questionNumber].answer) {
+                stop();
+                if (data === 0) {
+                    console.log("Timout");
+                    losses++;
+                    $("#Options").empty();
+                    $("#Question").empty();
+
+                    $("#display").empty();
+                    $("#result").html("<p>" + "Time Out!" + "</p>");
+
+                    delayButtonAlert = setTimeout(nextquestion, 2000);
+
+                }
+
+
+               else if (data === questions[questionNumber].answer) {
                     console.log("Correct");
                     wins++;
                     $("#Options").empty();
@@ -118,7 +156,7 @@
                     $("#display").empty();
                     $("#result").html("<p>" + "Correct!" + "</p>");
 
-                    delayButtonAlert = setTimeout(nextquestion, 5000);
+                    delayButtonAlert = setTimeout(nextquestion, 2000);
 
                 }
                 else {
@@ -128,7 +166,7 @@
                     $("#Question").empty();
                     $("#display").empty();
 
-                    delayButtonAlert = setTimeout(nextquestion, 5000);
+                    delayButtonAlert = setTimeout(nextquestion, 2000);
 
                     $("#result").html("<p>" + "Not Correct!" + "</p>")
 
@@ -145,7 +183,7 @@
                     questionNumber = counter;   
 
                 $("#Question").html(questions[questionNumber].question);
-
+                shuffle( questions[questionNumber].options);
                 for (i = 0; i < 3; i++) {
 
                     var newDiv = $("<div>");
@@ -182,7 +220,7 @@
 
                 var converted = time;
                 console.log(converted);
-                $("#display").text(converted);
+                $("#display").text("Time Remaining:" + converted);
             }
 
             function stop() {
@@ -199,7 +237,7 @@
 
                 time = 30;
 
-                $("#display").text("30");
+                $("#display").text("Time Remaining: 30");
                 start();
             }
 

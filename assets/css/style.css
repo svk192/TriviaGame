@@ -1,77 +1,68 @@
 body {
     /* background: url(assets/fridge.png) no-repeat; */
-    background-color: rgb(196, 108, 199);
-    color:white;
-    /* 
-    font-size:10px; */
-    display:flex;
-    flex-direction: column;
-    justify-content:center;
+    background-color: rgb(245, 223, 240);
 
-    }
-    #container {
-        /* position:absolute; */
-        width: 998px;
-        margin: auto;
-    /* padding: 20px; */
-    border: 3px groove white;
-    /* display:flex;
-    justify-content:center; */
-    }
-    
-    #currentWord {
-    display: flex;
-    justify-content:left;
-    /* padding: 10px;
-    margin:5px; */
-    font-size:20px;
-    
-    }
-    
-    #right {
-        /* height:100%;
-    width:70%;
-    
-  
-    padding: 30px; */
-    /* border: 3px groove white; */
-    
-    float:right;
-    /* margin:30px; */
-    width:668px;
-    }
-    #left {
-       
-        float:left;
-        padding: 0px;
-        /* margin-left:10px;
-        margin-top:10px; */
-        margin:10px;
-    }
-    
-    .letter{
-        padding: 10px;
-    margin:10px;
-    }
-    
-    
-    #stats {
-    /* text-align: center;   */
-    font-size:20px;
-    padding:20px;
-        /* margin:auto; */
+    color: rgb(83, 9, 73);
+    vertical-align: center;
+    font-family: 'Handlee';
     }
 
     h1{
-
-        font-size:30px;
-        padding: 10px;
-        margin:auto;
+        margin: 20px;
+        font-size:20px;
+        text-align: center;
+        font-size:40px;
+        font-family: 'Shadows Into Light Two', cursive;
+        
     }
 
-    h2{
 
+    #container {
+        /* position:absolute; */
+        /* width: 998px; */
+        margin: 30px;
+        padding: 20px; 
+        /* border: 1px groove black; */
         font-size:20px;
-        padding: 10px;
-        margin:auto;
+        text-align: center;
+
+
+    }
+
+    #Top{
+        position: relative;
+    
+    }
+    
+    #display{
+    float: right; 
+    }
+
+    #Question{
+        /* float: left;  */
+        margin: auto;
+        padding: 30px;
+        }
+
+    .option{
+        
+        padding: 20px;
+        margin: 10px;
+        
+        }
+
+    .option:hover {
+
+    padding: 10px;
+        border: 1px solid rgb(38, 0, 128); 
+       background-color:  rgba(149, 127, 185, 0.616);
+    
+    }
+
+    #StartGame{
+        font-size: 20px;
+        padding: 10px 150px;
+        border: 1px solid rgb(38, 0, 128); 
+       background-color:  rgba(149, 127, 185, 0.616);
+
     }
