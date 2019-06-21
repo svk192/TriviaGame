@@ -19,7 +19,7 @@
 <body>
     
         <div class="wrapper">
-    <h1>Trivia Game</h1>
+    <h1>Trivia Game - Friends</h1>
     <br>
 
 
@@ -32,7 +32,9 @@
         <div id="Question"></div>
     </div>
         <div id="Options"></div>
-        <div id="result"></div>
+        <div id="result">
+            <img id="image" src="https://media.giphy.com/media/xUOwGaK4KQ9Z6WZqso/giphy.gif">
+        </div>
 
   
     </div>
@@ -45,9 +47,10 @@
         $(document).ready(function () {
             var questions = [
                 {
-                    question: "What is Joey's middle name?",
-                    options: ["Frances", "Kangaroo", "Muriel"],
-                    answer: "Frances",
+                    question: "What type of product's commercial is Joey a part of?",
+                    options: ["cars", "food", "lipstick"],
+                    answer: "lipstick",
+                    image: "https://media.giphy.com/media/l4Ki6CgyyOU6IIO6A/giphy.gif"
           
                 },
 
@@ -55,6 +58,7 @@
                     question: "What is Joey's favorite food?",
                     options: ["Sandwiches", "Salad", "Pizza"],
                     answer: "Sandwiches",
+                    image: "https://media.giphy.com/media/pyEDsTDy2aIR5SXkBD/giphy.gif"
                  
                 },
 
@@ -62,24 +66,28 @@
                     question: "What is Monica's Occupation",
                     options: ["Masseuse", "Chef", "Agent"],
                     answer: "Chef",
+                    image: "https://media.giphy.com/media/IdyHPMy8eqZ68/giphy.gif"
           
                 },
                 {
                     question: "Whose catchphrase is 'Oh My God!'?",
                     options: ["Janice", "Monica", "Ross"],
                     answer: "Janice",
+                    image: "https://media.giphy.com/media/fYPtYT18vVLm8/giphy.gif"
           
                 },
                 {
                     question: "What is the name of the Coffee Shop?",
                     options: ["Friends Cafe", "Central Perk", "Central Park"],
                     answer: "Central Perk",
+                    image: "https://media.giphy.com/media/6KoHLujBN4QWk/giphy.gif"
           
                 },
                 {
                     question: "Who was the bride in the first one?",
                     options: ["Pheobe", "Monica", "Rachel"],
                     answer: "Rachel",
+                    image: "https://media.giphy.com/media/w5M9QgelugIJG/giphy.gif"
           
                 },
             
@@ -127,12 +135,33 @@
 
                 }
                 else {
-                    $("#container").html("<p>" + "End!" + "</p><br> Wins:" + wins + "<br> Losses:" + losses);
+                    var message;
+                    var image = $("<img>");
+
+                    if(wins >=losses){
+
+                    image.attr("src", "https://media.giphy.com/media/j9T65td3Kjqko/giphy.gif");
+                        message = "You are the winner!"
+                }
+                else{
+                    image.attr("src", "https://media.giphy.com/media/10I5e2yNnaozOo/giphy.gif");
+                        message = "Better Luck Next Time!"
+                }
+                
+                $("#container").html("<p>" + "End!" + "</p><br> Wins:" 
+                    + wins + "<br> Losses:"
+                     + losses + "<br>" 
+                    + message+ "<br>" 
+                     );
+                     $("#container").append(image);
+
                     stop();
+                    
+                
+                
                 }
 
 
-                delayButtonAlert = setTimeout(checkAnswer, 30000,0);
             }
 
             function checkAnswer(data) {
@@ -146,7 +175,10 @@
                     $("#Question").empty();
 
                     $("#display").empty();
-                    $("#result").html("<p>" + "Time Out!" + "</p>");
+
+                   
+                    $("#result").html("<p>" + "Time Out!" + "</p>" +
+                    "<p>" + "Correct Answer: " + questions[questionNumber].answer+ "</p>");
 
                     delayButtonAlert = setTimeout(nextquestion, 2000);
 
@@ -160,7 +192,8 @@
                     $("#Question").empty();
 
                     $("#display").empty();
-                    $("#result").html("<p>" + "Correct!" + "</p>");
+                    $("#result").html("<p>" + "Correct!" + "</p>"+
+                    "<p>" + "Correct Answer: " + questions[questionNumber].answer+ "</p>");
 
                     delayButtonAlert = setTimeout(nextquestion, 2000);
 
@@ -174,12 +207,15 @@
 
                     delayButtonAlert = setTimeout(nextquestion, 2000);
 
-                    $("#result").html("<p>" + "Not Correct!" + "</p>")
-
+                    $("#result").html("<p>" + "Not Correct!" + "</p>"+
+                    "<p>" + "Correct Answer: " + questions[questionNumber].answer+ "</p>");
+                    
 
 
                 }
-
+                var image = $("<img>");
+                    image.attr("src",questions[questionNumber].image);
+                    $("#result").append(image);
             }
 
 
@@ -202,7 +238,7 @@
                 }
 
                 counter++;
-
+                delayButtonAlert = setTimeout(checkAnswer, 30000,0);
             }
 
 
